@@ -13,3 +13,8 @@ coverage/
 *.sqlite-wal
 *.sqlite-shm
 /data/
+/start.bat
+/start.ps1
+/start.sh
+/docs/*.md
+/docs/*.yaml

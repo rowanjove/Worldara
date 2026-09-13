@@ -62,22 +62,26 @@ pnpm install
 直接启动本地开发环境（默认使用 SQLite 文件，数据写入 `data/`）：
 
 ```powershell
-.\start.ps1 -Mode dev
+pnpm dev
 ```
 
 打开 `http://localhost:3000`，API 健康检查地址是 `http://127.0.0.1:4000/health`。
 
-如果只想启动单个服务：
+如果只想启动单个服务，可以分别打开两个终端：
 
 ```powershell
-.\start.ps1 -Mode api
-.\start.ps1 -Mode web
+pnpm --filter @world-codex/api dev
+pnpm --filter @worldara/web dev
 ```
 
-使用 PostgreSQL 时，需要先启动 Docker Desktop，再运行：
+使用 PostgreSQL 时，需要先启动 Docker Desktop，并在 PowerShell 中设置连接信息：
 
 ```powershell
-.\start.ps1 -Mode db
+docker compose -f infra/compose/docker-compose.yml up -d
+$env:DATABASE_URL = 'postgres://worldcodex:worldcodex@localhost:54329/worldcodex'
+$env:MIGRATE_ON_START = '1'
+pnpm db:migrate
+pnpm dev
 ```
 
 `.env.example` 记录了 PostgreSQL、API、MCP 和可选内容服务的配置项。密钥只放在本机环境变量中，不要提交 `.env`。
@@ -90,7 +94,7 @@ apps/api       Fastify HTTP API
 apps/worker    PostgreSQL outbox / 异步任务入口
 apps/mcp       MCP stdio 入口
 packages/*     Domain、Application、Contracts、数据库、校验、快照、导入导出等核心包
-docs           架构、数据模型、API 与质量文档
+docs/screenshots  README 使用的产品截图
 infra          Docker Compose 配置
 ```
 
@@ -106,9 +110,9 @@ pnpm -r --workspace-concurrency=1 --if-present build
 
 当前 `1.0.0` 发布前已完成 TypeScript 检查、全量测试和全量构建；本机测试结果为 160 个通过断言，PostgreSQL contract 因 Docker 引擎不可用而跳过。真实 PostgreSQL 迁移、目标规模性能、浏览器 E2E 和实际外部模型调用需要在对应环境单独验收。
 
-## 文档与许可
+## 配置与许可
 
-- [开发文档](./docs/README.md)
-- [API 轮廓](./docs/openapi-outline.yaml)
+- [.env.example](./.env.example)
+- 数据库迁移位于 `packages/database/migrations/`
 
 仓库当前没有附带许可证文件。除非另行添加许可证，代码按保留所有权利处理。

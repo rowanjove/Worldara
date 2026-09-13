@@ -62,22 +62,26 @@ pnpm install
 Start the local development environment. It uses a SQLite file in `data/` by default:
 
 ```powershell
-.\start.ps1 -Mode dev
+pnpm dev
 ```
 
 Open `http://localhost:3000`. The API health endpoint is `http://127.0.0.1:4000/health`.
 
-To start one service at a time:
+To start one service at a time, use two terminals:
 
 ```powershell
-.\start.ps1 -Mode api
-.\start.ps1 -Mode web
+pnpm --filter @world-codex/api dev
+pnpm --filter @worldara/web dev
 ```
 
-For PostgreSQL, start Docker Desktop first and run:
+For PostgreSQL, start Docker Desktop and set the connection in PowerShell:
 
 ```powershell
-.\start.ps1 -Mode db
+docker compose -f infra/compose/docker-compose.yml up -d
+$env:DATABASE_URL = 'postgres://worldcodex:worldcodex@localhost:54329/worldcodex'
+$env:MIGRATE_ON_START = '1'
+pnpm db:migrate
+pnpm dev
 ```
 
 `.env.example` lists PostgreSQL, API, MCP and optional content-provider settings. Keep secrets in local environment variables and never commit `.env`.
@@ -90,7 +94,7 @@ apps/api       Fastify HTTP API
 apps/worker    PostgreSQL outbox / async task entry point
 apps/mcp       MCP stdio entry point
 packages/*     Domain, application, contracts, database, validation, snapshots and import/export
-docs           Architecture, data model, API and quality notes
+docs/screenshots  Product screenshots used by the READMEs
 infra          Docker Compose configuration
 ```
 
@@ -106,9 +110,9 @@ pnpm -r --workspace-concurrency=1 --if-present build
 
 For the `1.0.0` release, TypeScript checks, the full test suite and the full build passed locally. The run produced 160 passing assertions; the PostgreSQL contract was skipped because the Docker engine was unavailable. Real PostgreSQL migrations, target-scale performance, browser E2E and external model calls still need validation in their respective environments.
 
-## Documentation and license
+## Configuration and license
 
-- [Development notes](./docs/README.md)
-- [API outline](./docs/openapi-outline.yaml)
+- [.env.example](./.env.example)
+- Database migrations live in `packages/database/migrations/`
 
 There is currently no license file in the repository. Unless a license is added, the code is provided with all rights reserved.
