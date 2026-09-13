@@ -1,0 +1,32 @@
+{
+  "name": "@world-codex/api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@world-codex/application": "workspace:*",
+    "@world-codex/ai": "workspace:*",
+    "@world-codex/contracts": "workspace:*",
+    "@world-codex/database": "workspace:*",
+    "@world-codex/database-sqlite": "workspace:*",
+    "@world-codex/domain": "workspace:*",
+    "@world-codex/snapshot": "workspace:*",
+    "@world-codex/validator": "workspace:*",
+    "@world-codex/portable": "workspace:*",
+    "@world-codex/calendar": "workspace:*",
+    "fastify": "^5.5.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

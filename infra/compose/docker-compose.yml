@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: worldcodex
+      POSTGRES_PASSWORD: worldcodex
+      POSTGRES_DB: worldcodex
+    ports:
+      - "54329:5432"
+    volumes:
+      - world-codex-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U worldcodex -d worldcodex"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  world-codex-postgres:

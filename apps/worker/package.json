@@ -1,0 +1,8 @@
+{
+  "name": "@world-codex/worker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": { "build": "tsc -p tsconfig.json", "check": "tsc -p tsconfig.json --noEmit", "test": "vitest run --passWithNoTests", "dev": "tsx watch src/worker.ts", "start": "node dist/worker.js" },
+  "dependencies": { "@world-codex/database": "workspace:*" },
+  "devDependencies": { "@types/node": "^24.0.0", "tsx": "^4.20.5", "typescript": "^5.9.2", "vitest": "^3.2.4" }
+}
