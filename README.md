@@ -115,4 +115,4 @@ pnpm -r --workspace-concurrency=1 --if-present build
 - [.env.example](./.env.example)
 - 数据库迁移位于 `packages/database/migrations/`
 
-仓库当前没有附带许可证文件。除非另行添加许可证，代码按保留所有权利处理。
+本项目采用 [Apache License 2.0](./LICENSE)。Worldara 名称、Logo 和其他品牌标识不随代码许可证授权。

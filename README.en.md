@@ -115,4 +115,4 @@ For the `1.0.0` release, TypeScript checks, the full test suite and the full bui
 - [.env.example](./.env.example)
 - Database migrations live in `packages/database/migrations/`
 
-There is currently no license file in the repository. Unless a license is added, the code is provided with all rights reserved.
+This project is licensed under the [Apache License 2.0](./LICENSE). The Worldara name, logo and other brand identifiers are not granted under the code license.
